@@ -9,9 +9,9 @@ DIALECT = 'mysql'
 DRIVER = 'pymysql'
 USERNAME = 'master'
 PASSWORD = 'djdqltj'
-# office test mysql HOST = '192.168.204.128'
-HOST='192.168.1.150'
-POST = '3307' # mariadb 的默认端口是3307 mysql 是3306
+HOST = '192.168.204.128'
+# HOST='192.168.1.150'
+POST = '3306' # mariadb 的默认端口是3307 mysql 是3306
 DATABASE = 'master'
 DB_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALECT, DRIVER, USERNAME, PASSWORD, HOST, POST, DATABASE)
 SQLALCHEMY_DATABASE_URI = DB_URI

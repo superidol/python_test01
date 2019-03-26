@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+    <p>这是通过pyMysql 方式连接的数据库 查询返回</p>
+    <thead>
+    <th>ID</th>
+    <th>作者</th>
+    <th>价格</th>
+    </thead>
+    <tbody>
+    {% for book in book %}　　　　　　　　
+    <!--#for循环列表并打印字典里的内容&ndash;&gt;-->
+    <tr>
+        <td>{{ book[0] }}</td>
+        <td>{{ book[1] }}</td>
+        <td>{{ book[2] }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

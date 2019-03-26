@@ -30,12 +30,23 @@ app.config.from_object(config)
 db = SQLAlchemy(app)
 
 
+# 在master数据库中 中创建一张表: 表名为user
+
+class User(db.Model):
+    __tablename__ = 'user'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(100), nullable=False)
+
+
 # 在master数据库中 中创建一张表: 表名为atricle
 class Atricle(db.Model):
     __tablename__ = 'atricle'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
+    author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    author = db.relationship('User', backref=db.backref('articles'))
 
 
 db.create_all()
@@ -53,15 +64,40 @@ def index():
 
 
 # 以下是将查出的数据在Html中渲染出
+def add_rs():
+    #     rs=User(username='superidol')
+    #     db.session.add(rs)
+    #     db.session.commit()
+    pass
+
+
+
 @app.route('/rs')
 def rs():
+    #数据 增加
+   # rss = Atricle(title='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', content='22222222222222222222222', author_id=1)
+   # db.session.add(rss)
+   # db.session.commit()
 
     # 查询后通过HTML渲染
-    result = Atricle.query.filter(Atricle.title == 'aaaaaaaa').all()
+
+    # result = User.query.filter(Atricle.title == 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').all()
+
+    # 通过外键查询 user 表中 username=superidol 用户的数据
+    # 类似于 select * from atricle where author_id in (select id from user where username='superidol')
+    # 这个关系USER中的值只能是唯一的,不能为 list 类型, 如果是list类型 也只能取其中[x]
+
+    user = User.query.filter(User.username == 'superidol').all()
+
+    print(user[0])
+    result = user[0].articles
+
+
     if (len(result) == 0):
         return ('查询为空')
     else:
         return (render_template('index01.html', book=result))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
