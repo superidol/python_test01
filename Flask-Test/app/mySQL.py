@@ -8,8 +8,6 @@
 import pymysql
 from flask import Flask, redirect, render_template
 
-
-
 app = Flask(__name__)
 
 
@@ -35,7 +33,7 @@ def index():
     db.close()
     # for row in results:
     #     print(row[0])
-    return (render_template('index02.html',book=rs))
+    return (render_template('index02.html', book=rs))
 
 
 if __name__ == '__main__':
